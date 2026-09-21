@@ -18,13 +18,13 @@ for page in range(1,1000):
                         'Authorization':f'ApiKey {kibapa_api}'
                     },
                     verify=False)
-    
+
     results = r.json()
     df = pd.DataFrame(results)
     df_len = df.shape[0]
     if df_len:
         df_items = pd.json_normalize(df['items'])
-        df_hosts_status = df_items[['enrolled_at','local_metadata.host.name','status']]
+        df_hosts_status = df_items[['enrolled_at','local_metadata.host.name','status','agent.version']]
         df_to_dict = df_hosts_status.to_dict(orient='list')
         for keys,values in df_to_dict.items():
 
